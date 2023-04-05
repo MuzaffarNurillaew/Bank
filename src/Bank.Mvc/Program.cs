@@ -1,7 +1,15 @@
+using Bank.Data.DbContexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Registrate dbContext to DI container
+builder.Services.AddDbContext<BankDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Database not found or cannot be accessed")));
 
 var app = builder.Build();
 
