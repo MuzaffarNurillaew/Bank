@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Bank.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bank.Data.DbContexts
 {
@@ -8,5 +9,9 @@ namespace Bank.Data.DbContexts
             : base(options)
         {
         }
+
+        #region Users
+        public DbSet<User> Users { get; set; }
+        #endregion
     }
 }
