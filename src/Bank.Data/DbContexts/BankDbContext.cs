@@ -8,6 +8,7 @@ namespace Bank.Data.DbContexts
         public BankDbContext(DbContextOptions<BankDbContext> options)
             : base(options)
         {
+            Database.Migrate();
         }
 
         #region Users

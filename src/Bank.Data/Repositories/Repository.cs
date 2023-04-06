@@ -50,6 +50,17 @@ namespace Bank.Data.Repositories
         }
         #endregion
 
+        #region save
+        /// <summary>
+        /// saves tracking changes
+        /// </summary>
+        /// <returns></returns>
+        public async Task SaveAsync()
+        {
+            await dbContext.SaveChangesAsync();
+        }
+        #endregion
+
         #region select all
         /// <summary>
         /// Selects all element of table

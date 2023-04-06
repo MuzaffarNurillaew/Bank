@@ -9,5 +9,6 @@ namespace Bank.Data.IRepositories
         Task<bool> DeleteAsync(Expression<Func<T, bool>> expression);
         Task<T> SelectAsync(Expression<Func<T, bool>> expression);
         IQueryable<T> SelectAll();
+        Task SaveAsync();
     }
 }
