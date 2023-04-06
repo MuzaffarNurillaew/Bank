@@ -6,6 +6,17 @@
 <h1>@ViewData["Title"]</h1>
 
 <p><a asp-action="Create" class="btn btn-success">Registrate new user</a></p>
+<div class="col-sm-1">
+    <form asp-controller="Users" asp-action="Index">
+        <p>
+            Name: <input type="text" name="searchString" />
+            Page Size: <input type="number" name="pageSize" />
+            Page Index: <input type="number" name="pageIndex" />
+
+            <input type="submit" value="Filter" />
+        </p>
+    </form>
+</div>
 
 <table class="table">
     <thead>
