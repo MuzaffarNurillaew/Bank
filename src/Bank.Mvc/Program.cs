@@ -2,6 +2,7 @@ using Bank.Data.DbContexts;
 using Bank.Data.IRepositories;
 using Bank.Data.Repositories;
 using Bank.Domain.Entities;
+using Bank.Service.Mappers;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,6 +17,9 @@ builder.Services.AddDbContext<BankDbContext>(options =>
 
 // Registrate Repositories to DI container
 builder.Services.AddScoped<IRepository<User>, Repository<User>>();
+
+// Registrate Automapper to DI container
+builder.Services.AddAutoMapper(typeof(MapperProfile));
 
 var app = builder.Build();
 
