@@ -6,12 +6,17 @@ namespace Bank.Service.Extensions
     {
         public static IQueryable<T> ToPagedList<T>(this IQueryable<T> source, PaginationParams @params)
         {
-            if (@params.PageIndex < 1)
+            int numberOfItemsToSkip = (@params.PageIndex - 1) * @params.PageSize;
+            int totalCount = source.Count();
+
+            if (numberOfItemsToSkip >= totalCount)
             {
-                @params.PageIndex = 1;
+                int toTake = totalCount % @params.PageSize;
+
+                return source.TakeLast(toTake);
             }
 
-            return source.Skip((@params.PageIndex - 1) * @params.PageSize).Take(@params.PageSize);
+            return source.Skip(numberOfItemsToSkip).Take(@params.PageSize);
         }
     }
 }

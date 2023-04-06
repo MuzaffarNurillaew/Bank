@@ -11,6 +11,6 @@ namespace Bank.Service.Interfaces
         Task<UserDto> UpdateAsync(Expression<Func<User, bool>> expression, UserCreationDto userDto);
         Task<bool> DeleteAsync(Expression<Func<User, bool>> expression);
         Task<UserDto> GetAsync(Expression<Func<User, bool>> expression);
-        Task<IEnumerable<UserDto>> GetAllAsync(PaginationParams @params, Expression<Func<User, bool>> expression = null);
+        Task<List<UserDto>> GetAllAsync(PaginationParams @params, Expression<Func<User, bool>> expression = null);
     }
 }

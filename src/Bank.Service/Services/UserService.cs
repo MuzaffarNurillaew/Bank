@@ -5,6 +5,7 @@ using Bank.Domain.Configuration;
 using Bank.Domain.Entities;
 using Bank.Service.Dtos.Users;
 using Bank.Service.Exceptions;
+using Bank.Service.Extensions;
 using Bank.Service.Interfaces;
 using System.Linq.Expressions;
 
@@ -57,14 +58,18 @@ namespace Bank.Service.Services
             return isDeleted;
         }
 
-        public Task<IEnumerable<UserDto>> GetAllAsync(PaginationParams @params, Expression<Func<User, bool>> expression = null)
+        public async Task<List<UserDto>> GetAllAsync(PaginationParams @params, Expression<Func<User, bool>> expression = null)
         {
             if (expression is null)
             {
                 expression = (x => true);
             }
 
+            var entities = _userRepository.SelectAll().Where(expression).ToPagedList<User>(@params).ToList();
 
+            var result = _mapper.Map<List<UserDto>>(entities);
+
+            return await Task.FromResult(result);
         }
 
         public async Task<UserDto> GetAsync(Expression<Func<User, bool>> expression)
