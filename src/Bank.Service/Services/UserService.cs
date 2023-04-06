@@ -36,6 +36,7 @@ namespace Bank.Service.Services
 
             try
             {
+                entityToInsert.CreatedAt = DateTime.UtcNow;
                 var insertedUser = await _userRepository.InsertAsync(entityToInsert);
                 var result = _mapper.Map<UserDto>(insertedUser);
 
@@ -65,7 +66,11 @@ namespace Bank.Service.Services
                 expression = (x => true);
             }
 
-            var entities = _userRepository.SelectAll().Where(expression).ToPagedList<User>(@params).ToList();
+            var entities = _userRepository.SelectAll();
+
+            entities = entities.Where(expression).ToPagedList<User>(@params);
+
+            var filteredUsers = entities.ToList();
 
             var result = _mapper.Map<List<UserDto>>(entities);
 
@@ -82,7 +87,7 @@ namespace Bank.Service.Services
             return _mapper.Map<UserDto>(entity);
         }
 
-        public async Task<UserDto> UpdateAsync(Expression<Func<User, bool>> expression, UserCreationDto userDto)
+        public async Task<UserDto> UpdateAsync(Expression<Func<User, bool>> expression, UserDto userDto)
         {
             var entity = await _userRepository.SelectAsync(expression);
 

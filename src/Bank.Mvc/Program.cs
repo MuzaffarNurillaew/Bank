@@ -2,7 +2,9 @@ using Bank.Data.DbContexts;
 using Bank.Data.IRepositories;
 using Bank.Data.Repositories;
 using Bank.Domain.Entities;
+using Bank.Service.Interfaces;
 using Bank.Service.Mappers;
+using Bank.Service.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,9 @@ builder.Services.AddDbContext<BankDbContext>(options =>
 
 // Registrate Repositories to DI container
 builder.Services.AddScoped<IRepository<User>, Repository<User>>();
+
+// Registrate Services to DI container
+builder.Services.AddScoped<IUserService, UserService>();
 
 // Registrate Automapper to DI container
 builder.Services.AddAutoMapper(typeof(MapperProfile));

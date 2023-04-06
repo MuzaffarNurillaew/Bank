@@ -9,11 +9,9 @@ namespace Bank.Service.Extensions
             int numberOfItemsToSkip = (@params.PageIndex - 1) * @params.PageSize;
             int totalCount = source.Count();
 
-            if (numberOfItemsToSkip >= totalCount)
+            if (numberOfItemsToSkip >= totalCount && totalCount > 0)
             {
-                int toTake = totalCount % @params.PageSize;
-
-                return source.TakeLast(toTake);
+                numberOfItemsToSkip = totalCount - totalCount % @params.PageSize;
             }
 
             return source.Skip(numberOfItemsToSkip).Take(@params.PageSize);
